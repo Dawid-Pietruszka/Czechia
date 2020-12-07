@@ -1,0 +1,71 @@
+{% extends "navbar.html" %}
+{% block title %}
+Register
+{% endblock %}
+{% block content %}
+<div class="container-fluid">
+
+    <div class="container">
+      <br><br><br><br>        
+      <div class="row">
+        <div class="col"></div>
+        <div class="col">
+      <div class="alert alert-danger text-center">
+        <p>{{msg}}</p>
+      </div>
+      </div>
+      <div class="col"></div>
+  </div>
+      <div class="row">
+        <div class="col"></div>
+        <div class="col">
+          <div class="card text-center">
+            <div class="card-body">
+              <h5 class="card-title">Register</h5>
+              <form method=POST action="{{ url_for('register') }}">
+                <div class="form-group">
+                  <label>Username</label>
+                  {{ form.csrf_token }}
+                  {{ form.regUsername }}
+                  {% for error in form.regUsername.errors %}
+                  <ul>
+                    <li class="text-danger">{{ error }}</li>
+                  </ul>
+                  {% endfor %}
+                </div>
+                <div class="form-group">
+                  <label>Password</label>&nbsp;
+                  {{ form.csrf_token }}
+                  {{ form.regPassword }}
+                  {% for error in form.regPassword.errors %}
+                  <ul>
+                    <li class="text-danger">{{ error }}</li>
+                  </ul>
+                  {% endfor %}
+                </div>
+                <div class="form-group">
+                  <label>Email</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                  {{ form.csrf_token }}
+                  {{ form.email }}
+                  {% for error in form.email.errors %}
+                  <ul>
+                    <li class="text-danger">{{ error }}</li>
+                  </ul>
+                  {% endfor %}
+                </div>
+                {% if wrongRegister == True %}
+                <p>Username already taken! Please choose a different one</p>
+                {% endif %}
+                {% if wrongEmail == True %}
+                <p>Email already taken! Please choose a different one</p>
+                {% endif %}
+                <button type="submit" class="btn btn-success btn-block">Register</button>
+              </form>
+            </div>
+          </div>
+        </div>
+        <div class="col"></div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

@@ -1,0 +1,73 @@
+{% extends "navbar.html" %}
+{% block title %}
+Home
+{% endblock %}
+{% block content %}
+<style>
+  h2{
+     color: black; 
+  font-family: "arial";
+  font-size: 3em;
+  margin: 10px 0 0 10px;
+  white-space: nowrap;
+  overflow: hidden;
+  width: 100%;
+  animation: animtext 4s steps(80, end); 
+   transition: all cubic-bezier(0.1, 0.7, 1.0, 0.1);
+}
+@keyframes animtext { 
+  from {
+      width: 0;
+     transition: all 2s ease-in-out;
+  } 
+}
+</style>
+<div class="container-fluid">
+
+    <div class="container">
+      
+      <br><br>
+      {% if s['username'] %}
+      <h2 class="text-center text-success">Welcome {{s['username']}}!</h2>
+      {% endif %}
+      <div class="row">
+        <div class="col">
+          <div class="card text-center" style="height:480px">
+            <div class="card-body">
+              <h5 class="card-title">Description of the game</h5>
+              <p class="card-text">
+                This project is a simple quiz game about the Czech Republic. There are 5 trivia questions about the Czech Republic, and you have to get 3 of them correctly
+                in order to win. You win by simply choosing a part of the flag to uncover, and then answering the question correctly, which will uncover the flag. When the 
+                entire flag is uncovered, you win the game, and a won game is added to your profile statistics.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="col">
+          <div class="card text-center" style="height:480px">
+            <div class="card-body">
+              <h5 class="card-title">Leaderboard</h5>
+              <p class="card-text">
+                {% for i in active %}
+                <p>{{i[0]}} won: {{i[1]}} games</p>
+                {% endfor %}
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <br><br>
+      <div class="row ">
+        
+        <div class="col"></div>
+        <div class="col">
+          <a href="{{ url_for('game') }}" class="btn btn-success btn-lg btn-block" role="button" aria-disabled="true">Play</a>
+        </div>
+        <div class="col"></div>
+        
+
+      </div>
+    </div>
+  </div>
+{% endblock %}

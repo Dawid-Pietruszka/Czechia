@@ -1,0 +1,49 @@
+{% extends "navbar.html" %}
+{% block title %}
+Register
+{% endblock %}
+{% block content %}
+<div class="container-fluid">
+
+    <div class="container">
+      <br><br><br><br>        
+      <div class="row">
+        <div class="col"></div>
+        <div class="col">
+      <div class="alert alert-danger text-center">
+        <p>{{msg}}</p>
+      </div>
+      </div>
+      <div class="col"></div>
+  </div>
+      <div class="row">
+        <div class="col"></div>
+        <div class="col">
+          <div class="card text-center">
+            <div class="card-body">
+              <h5 class="card-title">Login</h5>
+              <form method=POST action="{{ url_for('login') }}">
+                <div class="form-group">
+                  <label>Username</label>
+                  {{ form.csrf_token }}
+                  {{ form.username }}
+                </div>
+                <div class="form-group">
+                  <label>Password</label>&nbsp;
+                  {{ form.csrf_token }}
+                  {{ form.password }}
+                </div>
+                {% if wrongLogin == True %}
+                  <p class="text-danger">Wrong login details. Please try again</p>
+                {% endif %}
+                {{ form.recaptcha }}
+                <button type="submit" class="btn btn-success btn-block">Login</button>
+              </form>
+            </div>
+          </div>
+        </div>
+        <div class="col"></div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

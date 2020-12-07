@@ -1,0 +1,128 @@
+{% extends "gameNavbar.html" %}
+{% block title %}
+Game
+{% endblock %}
+{% block content %}
+
+
+  <div class="container">
+    <br>
+    <div class="row">
+
+      <div class="col">
+        <div class="card">
+          <div class="card-header text-center">
+            <p>Game</p>
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#Tutorial">
+              Tutorial
+            </button>
+          </div>
+          
+          <div class="card-body">
+            <div class="row">
+              <div class="col">
+              <div class="col">
+                <br>
+                <div class="card text-center" style="width:100%;">
+                  <div class="card-header">
+                    <p>Question</p>
+                  </div>
+                  <div class="card-body">
+                    {% for i in q %}
+                    <p>{{i}}</p>
+                    {% endfor %}
+                    <div class="row">
+                    <div class="col">
+                    </div>
+                    </div>
+                    <br>
+                  </div>
+                </div>
+              </div>
+              <div class="w-100">
+                <div class="col">
+                  <br>
+                  <div class="card" style="width:100%;">
+                    <div class="card-header text-center">
+                      <p>Answer:</p>
+                    </div>
+                    <div class="card-body text-center">
+                      {% if a == 1 %}
+                      <div class="alert alert-success">
+                      <p>Correct! {{ c }}</p>
+                    </div>
+                      {% else %}
+                      <div class="alert alert-danger">
+                      <p>Incorrect! Correct answer is: {{ c }}</p>
+                    </div>
+                      {% endif %}
+                      <form action='/gamenext/' method='POST'>
+                        <input type="submit" value="Next" class="btn btn-success btn-lg btn-block"></input>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col">
+              <br>
+              <div class="card" style="width:100%; height:33rem;">
+                <h5 class="card-title text-center">Map</h5>
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col">
+                      {% if "North" in p %}
+                      <img src="{{url_for('static', filename='northC.png')}}" style="mix-blend-mode: multiply; width:380px; height: 210px; position: absolute;" class="img-fluid" alt="North">
+                      {% else %}
+                      <img src="{{url_for('static', filename='north.png')}}" style="mix-blend-mode: multiply; width:380px; height: 210px; position: absolute;" class="img-fluid" alt="North">
+                      {% endif %}
+                      {% if "West" in p %}
+                      <div style="margin-top: 50px; margin-left: -105px;">
+                        <img src="{{url_for('static', filename='westC.png')}}" style="mix-blend-mode: multiply; width:380px; height: 210px; position: absolute;" class="img-fluid" alt="West">
+                        </div>
+                      {% else %}
+                      <div style="margin-top: 50px; margin-left: -105px;">
+                      <img src="{{url_for('static', filename='west.png')}}" style="mix-blend-mode: multiply; width:380px; height: 210px; position: absolute;" class="img-fluid" alt="West">
+                      </div>
+                      {% endif %}
+                      {% if "South" in p %}
+                      <div style="margin-top: 103px; margin-left: 5px;">
+                        <img src="{{url_for('static', filename='southC.png')}}" style="mix-blend-mode: multiply; width:380px; height: 210px; position: absolute;" class="img-fluid" alt="South">
+                      </div>
+                      {% else %}
+                      <div style="margin-top: 103px; margin-left: 5px;">
+                        <img src="{{url_for('static', filename='south.png')}}" style="mix-blend-mode: multiply; width:380px; height: 210px; position: absolute;" class="img-fluid" alt="South">
+                      </div>
+                      {% endif %}
+                    </div>
+                  </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>
+
+    </div>
+  </div>
+  <!-- Modal -->
+<div class="modal fade" id="Tutorial" tabindex="-1" role="dialog" aria-labelledby="Tutorial" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="TutorialLabel">Tutorial</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <img src="{{url_for('static', filename='Tutorial.png')}}" class="img-fluid" alt="Tutorial">
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

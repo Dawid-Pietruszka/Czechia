@@ -1,0 +1,126 @@
+{% extends "navbar.html" %}
+{% block title %}
+About
+{% endblock %}
+{% block content %}
+
+<div class="container">
+  <br><br>
+  <div class="row">
+    <div class="col">            
+        <div class="col">
+              <div class="card text-center">
+                  <div class="card-body">
+                      <h5 class="card-title">Game Statistics</h5>
+                      <p class="card-text">
+                          {% for key, value in userdata.items() %}
+                              <p class="text-center">{{key}}: {{value}}</p>
+                          {% endfor %}
+                      </p>
+                  </div>
+              </div>
+          </div>
+
+      <div class="w-100"></div>
+      <br>
+      <div class="col">
+          <div class="card text-center">
+              <div class="card-body">
+                  <h5 class="card-title">Player Description</h5>
+                  <p class="card-text">
+                      {{desc}}
+                  </p>
+                  {% if searched %}
+
+                  {% else %}
+                  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#ModalCentre">
+                      Edit
+                  </button>
+                  {% endif %}
+              </div>
+          </div>
+      </div>
+    </div>
+
+    <div class="col">
+      <div class="col">
+          <form class="form-inline my-2 my-lg-0" method=POST action="{{ url_for('search') }}">
+              {% if notFound %}
+              <input class="form-control mr-sm-2" type="text" name="username" placeholder="User Not Found" aria-label="Search">
+              {% else %}
+              <input class="form-control mr-sm-2" type="text" name="username" placeholder="Search" aria-label="Search">
+              {% endif %}
+              <button class="btn btn-success my-2 my-sm-0" type="submit">Search</button>
+          </form>
+      </div>
+      <br>
+      <div class="col">
+          <div class="card text-center">
+              <div class="card-body" style="height: 20rem;">
+                  <h5 class="card-title">Profile Settings</h5>
+                  <p class="card-text">
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#ChangePassword">Change Password</button>
+                    <p>{{passchanged}}</p>
+                  </p>                        
+              </div>
+          </div>
+      </div>
+  </div>
+  </div>
+</div>
+<div class="modal fade" id="ModalCentre" tabindex="-1" role="dialog" aria-labelledby="ModalCentreTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="ModalTitle">Description</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+          <textarea type="text" rows="4" class="form-control" name="description" form="form1" placeholder="Description"></textarea>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <form method=POST action="{{ url_for('profiledesc') }}" id="form1">
+          <button type="submit" class="btn btn-primary">Save changes</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="ChangePassword" tabindex="-1" role="dialog" aria-labelledby="ModalCentreTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="ModalTitle">Change Password</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form method=POST action="{{ url_for('updatePass') }}" id="form2">
+          <div class="form-group">
+            <label>Current Password</label>
+            {{ form.csrf_token }}
+            {{ form.password_current}}
+          </div>
+          <div class="form-group">
+            <label>New Password</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            {{ form.csrf_token }}
+            {{ form.password }}
+          </div>
+          {% for error in form.password.errors %}
+          <ul>
+            <li class="text-danger">{{ error }}</li>
+          </ul>
+          {% endfor %}
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary">Save changes</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
