@@ -15,14 +15,14 @@ SESSION_TYPE = 'filesystem'
 app.config.from_object(__name__)
 Session(app)
 
-app.secret_key = 'secret'
-app.config['RECAPTCHA_PUBLIC_KEY'] = '6Ldln_gZAAAAAG_VasEonXja583X0OywEWzJyov0'
-app.config['RECAPTCHA_PRIVATE_KEY'] = '6Ldln_gZAAAAAN9XvM_gB-tZ_lg_ySHmbVB2zk9n'
+app.secret_key = ''
+app.config['RECAPTCHA_PUBLIC_KEY'] = ''
+app.config['RECAPTCHA_PRIVATE_KEY'] = ''
 
 
 msg = "Please log in"
 
-cluster = MongoClient("mongodb+srv://Admin:1234@cluster0.tfwfz.mongodb.net/Courseworkdata?retryWrites=true&w=majority")
+cluster = MongoClient("")
 db = cluster["Courseworkdata"]
 questionCollection = db["Questions"]
 provinceCollection = db["CzechiaProvince"]
